@@ -1,0 +1,97 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "Seed data is for development purposes and not exposed to regular users.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      username: "user1",
+      email: "user1@example.com",
+      passwordHash: "hashed_password_1",
+      createdAt: "2023-01-01T10:00:00Z",
+      displayName: "Demo User One",
+      bio: "This is a bio for demo user one.",
+      profilePictureUrl: "https://example.com/profile1.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      username: "user2",
+      email: "user2@example.com",
+      passwordHash: "hashed_password_2",
+      createdAt: "2023-01-01T10:05:00Z",
+      displayName: "Demo User Two",
+      bio: "This is a bio for demo user two.",
+      profilePictureUrl: "https://example.com/profile2.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      username: "user3",
+      email: "user3@example.com",
+      passwordHash: "hashed_password_3",
+      createdAt: "2023-01-01T10:10:00Z",
+      displayName: "Demo User Three",
+      bio: "This is a bio for demo user three.",
+      profilePictureUrl: "https://example.com/profile3.jpg"
+    }
+  ])
+  post_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440010",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      content: "First post by user one!",
+      createdAt: "2023-01-01T11:00:00Z",
+      imageUrl: "https://example.com/post1_image.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440011",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      content: "Hello from user two!",
+      createdAt: "2023-01-01T11:05:00Z",
+      imageUrl: null
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440012",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      content: "Another post from user one.",
+      createdAt: "2023-01-01T11:10:00Z",
+      imageUrl: "https://example.com/post2_image.jpg"
+    }
+  ])
+  comment_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440020",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      postId: "550e8400-e29b-41d4-a716-446655440010",
+      text: "Great post!",
+      createdAt: "2023-01-01T12:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440021",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      postId: "550e8400-e29b-41d4-a716-446655440011",
+      text: "Nice to see you here!",
+      createdAt: "2023-01-01T12:05:00Z"
+    }
+  ])
+  like_insertMany(data: [
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440002",
+      postId: "550e8400-e29b-41d4-a716-446655440010",
+      createdAt: "2023-01-01T13:00:00Z"
+    },
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      postId: "550e8400-e29b-41d4-a716-446655440011",
+      createdAt: "2023-01-01T13:05:00Z"
+    }
+  ])
+  follow_insertMany(data: [
+    {
+      followerId: "550e8400-e29b-41d4-a716-446655440000",
+      followingId: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2023-01-01T14:00:00Z"
+    },
+    {
+      followerId: "550e8400-e29b-41d4-a716-446655440001",
+      followingId: "550e8400-e29b-41d4-a716-446655440002",
+      createdAt: "2023-01-01T14:05:00Z"
+    }
+  ])
+}

@@ -1,0 +1,56 @@
+query ListAllUsers @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  users {
+    id
+    username
+    displayName
+    profilePictureUrl
+    bio
+  }
+}
+
+mutation CreateNewPost($content: String!, $imageUrl: String) @auth(level: USER) {
+  post_insert(data: {
+    userId_expr: "auth.uid",
+    content: $content,
+    createdAt_expr: "request.time",
+    imageUrl: $imageUrl
+  })
+}
+
+mutation LikePost($postId: UUID!) @auth(level: USER) {
+  like_insert(data: {
+    userId_expr: "auth.uid",
+    postId: $postId,
+    createdAt_expr: "request.time"
+  })
+}
+
+query GetUserPosts($userId: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  posts(where: {userId: {eq: $userId}}, orderBy: [{createdAt: DESC}]) {
+    id
+    content
+    imageUrl
+    createdAt
+    user {
+      id
+      username
+      displayName
+    }
+    likes_on_post {
+      id
+      user {
+        id
+        username
+      }
+    }
+    comments_on_post {
+      id
+      text
+      createdAt
+      user {
+        id
+        username
+      }
+    }
+  }
+}
